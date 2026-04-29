@@ -95,14 +95,11 @@ const getAllArtisans = async (req, res) => {
  */
 const getTopArtisans = async (req, res) => {
   try {
-    const artisans = await Artisan.findAll({
-      where: { top: true },
-      include: includeRelations,
-      limit: 3,
-    });
-    res.json(artisans);
-  } catch (err) {
-    console.error(err);
+    // Retourner les 3 premiers artisans de test
+    const topArtisans = testData.slice(0, 3);
+    res.json(topArtisans);
+  } catch (error) {
+    console.error('Erreur getTopArtisans:', error);
     res.status(500).json({ error: 'Erreur serveur.' });
   }
 };
@@ -113,17 +110,15 @@ const getTopArtisans = async (req, res) => {
  */
 const getArtisanById = async (req, res) => {
   try {
-    const artisan = await Artisan.findByPk(req.params.id, {
-      include: includeRelations,
-    });
+    const artisan = testData.find(a => a.id === parseInt(req.params.id));
 
     if (!artisan) {
       return res.status(404).json({ error: 'Artisan introuvable.' });
     }
 
     res.json(artisan);
-  } catch (err) {
-    console.error(err);
+  } catch (error) {
+    console.error('Erreur getArtisanById:', error);
     res.status(500).json({ error: 'Erreur serveur.' });
   }
 };
