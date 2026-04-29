@@ -11,6 +11,9 @@ $color-danger:     #cd2c2e;
 $color-success:    #82b864;
 
 // Typographie - Police Graphik (Région Auvergne-Rhône-Alpes)
+// @font-face désactivés temporairement pour éviter les erreurs de build Vercel
+// TODO: Intégrer les polices via import CSS ou autre méthode
+/*
 @font-face {
   font-family: 'Graphik';
   src: url('/fonts/graphik-regular.woff2') format('woff2'),
@@ -37,6 +40,7 @@ $color-success:    #82b864;
   font-style: normal;
   font-display: swap;
 }
+*/
 
 $font-family-base: 'Graphik', Arial, sans-serif;
 $font-size-base:   1rem;
