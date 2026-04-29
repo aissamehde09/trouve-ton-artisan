@@ -32,7 +32,7 @@ const ArtisansPage = () => {
       .then(setArtisans)
       .catch((err) => setError(err.message))
       .finally(() => setLoading(false));
-  }, [search, categorie, fetchArtisans]);
+  }, [search, categorie, pageTitle, fetchArtisans]);
 
   return (
     <main id="main-content" className="liste-page">
