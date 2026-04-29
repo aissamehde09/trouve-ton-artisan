@@ -71,7 +71,7 @@ const ArtisanCard = ({ artisan }) => {
         {artisan.photo ? (
           <img
             src={artisan.photo}
-            alt={`Photo de ${artisan.nom}`}
+            alt={artisan.nom}
             className="card-img-top"
           />
         ) : (

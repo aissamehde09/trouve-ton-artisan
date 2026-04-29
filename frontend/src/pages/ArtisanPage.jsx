@@ -80,7 +80,7 @@ const ArtisanPage = () => {
       })
       .catch((err) => setError(err.message))
       .finally(() => setLoading(false));
-  }, [id]);
+  }, [id, fetchArtisanById]);
 
   const handleFormChange = (e) => {
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -163,7 +163,7 @@ const ArtisanPage = () => {
             {artisan.photo ? (
               <img
                 src={artisan.photo}
-                alt={`Photo de ${artisan.nom}`}
+                alt={artisan.nom}
                 className="artisan-photo mb-3"
               />
             ) : (
