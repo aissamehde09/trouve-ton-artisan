@@ -4,11 +4,7 @@
 -- Région Auvergne-Rhône-Alpes
 -- ============================================================
 
-CREATE DATABASE IF NOT EXISTS trouve_ton_artisan
-  CHARACTER SET utf8mb4
-  COLLATE utf8mb4_unicode_ci;
-
-USE trouve_ton_artisan;
+USE railway;
 
 -- ─── Table : categories ────────────────────────────────────
 CREATE TABLE IF NOT EXISTS categories (

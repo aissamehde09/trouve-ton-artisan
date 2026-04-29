@@ -4,6 +4,7 @@ const cors = require('cors');
 const helmet = require('helmet');
 const rateLimit = require('express-rate-limit');
 const { sequelize } = require('./models');
+const initializeDatabase = require('./utils/initializeDatabase');
 const apiKeyAuth = require('./middleware/apiKeyAuth');
 const routes = require('./routes');
 
@@ -48,8 +49,9 @@ app.use((req, res) => {
 // ─── Démarrage ──────────────────────────────────────────────
 sequelize
   .authenticate()
-  .then(() => {
+  .then(async () => {
     console.log('✅ Connexion à la base de données réussie.');
+    await initializeDatabase();
     app.listen(PORT, () => {
       console.log(`🚀 API démarrée sur http://localhost:${PORT}`);
     });
