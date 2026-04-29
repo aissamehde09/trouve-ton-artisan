@@ -33,8 +33,9 @@ app.use(express.json({ limit: '10kb' }));
 app.use(express.urlencoded({ extended: true, limit: '10kb' }));
 
 // ─── Routes ─────────────────────────────────────────────────
-// Toutes les routes API sont protégées par la clé API
-app.use('/api', apiKeyAuth, routes);
+// Toutes les routes API sont protégées par la clé API (temporairement désactivé)
+// app.use('/api', apiKeyAuth, routes);
+app.use('/api', routes);
 
 // Route de santé (sans clé API pour monitoring)
 app.get('/health', (req, res) => res.json({ status: 'ok' }));
