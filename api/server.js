@@ -17,7 +17,7 @@ app.use(helmet());
 
 // CORS : limité à l'application frontend
 app.use(cors({
-  origin: ['http://localhost:3000', 'http://localhost:3001', 'https://votre-app-vercel.vercel.app'],
+  origin: ['http://localhost:3000', 'http://localhost:3001', 'https://trouve-ton-artisan-dbs2.vercel.app'],
   methods: ['GET', 'POST'],
 }));
 
