@@ -1,0 +1,386 @@
+// ============================================================
+// Variables - Charte graphique Région Auvergne-Rhône-Alpes
+// ============================================================
+
+// Palette officielle
+$color-light:      #f1f8fc;
+$color-primary:    #0074c7;
+$color-secondary:  #00497c;
+$color-dark:       #384050;
+$color-danger:     #cd2c2e;
+$color-success:    #82b864;
+
+// Typographie - Police Graphik (Région Auvergne-Rhône-Alpes)
+@font-face {
+  font-family: 'Graphik';
+  src: url('../../public/fonts/graphik-regular.woff2') format('woff2'),
+       url('../../public/fonts/Graphik Family/Graphik-Regular-Trial.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Graphik';
+  src: url('../../public/fonts/graphik-medium.woff2') format('woff2'),
+       url('../../public/fonts/Graphik Family/Graphik-Medium-Trial.otf') format('opentype');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Graphik';
+  src: url('../../public/fonts/graphik-bold.woff2') format('woff2'),
+       url('../../public/fonts/Graphik Family/Graphik-Bold-Trial.otf') format('opentype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+$font-family-base: 'Graphik', Arial, sans-serif;
+$font-size-base:   1rem;
+
+// Bootstrap overrides (avant l'import Bootstrap)
+$primary:          $color-primary;
+$secondary:        $color-secondary;
+$dark:             $color-dark;
+$success:          $color-success;
+$danger:           $color-danger;
+$light:            $color-light;
+$body-color:       $color-dark;
+$font-family-base: $font-family-base;
+$border-radius:    0.5rem;
+$border-radius-lg: 0.75rem;
+
+// ─── Import Bootstrap ──────────────────────────────────────
+@import '~bootstrap/scss/bootstrap';
+
+// ============================================================
+// Styles globaux
+// ============================================================
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: $font-family-base;
+  color: $color-dark;
+  background-color: #fff;
+  -webkit-font-smoothing: antialiased;
+}
+
+// Skip-link accessibilité WCAG 2.1
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: 0;
+  background: $color-primary;
+  color: #fff;
+  padding: 0.5rem 1rem;
+  z-index: 9999;
+  font-size: 0.9rem;
+  border-radius: 0 0 $border-radius 0;
+
+  &:focus {
+    top: 0;
+  }
+}
+
+// Couleurs utilitaires
+.text-primary    { color: $color-primary !important; }
+.text-secondary  { color: $color-secondary !important; }
+.bg-primary-soft { background-color: $color-light; }
+
+// ─── Étoiles ──────────────────────────────────────────────
+.stars {
+  color: #f5a623;
+  font-size: 1rem;
+  letter-spacing: 2px;
+}
+
+// ─── Cards artisans ───────────────────────────────────────
+.artisan-card {
+  border: 1px solid darken($color-light, 5%);
+  border-radius: $border-radius-lg;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  cursor: pointer;
+  height: 100%;
+  text-decoration: none;
+  color: inherit;
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba($color-primary, 0.15);
+    border-color: $color-primary;
+    color: inherit;
+  }
+
+  .card-img-top {
+    height: 180px;
+    object-fit: cover;
+    border-radius: $border-radius-lg $border-radius-lg 0 0;
+    background: $color-light;
+  }
+
+  .card-specialite {
+    font-size: 0.8rem;
+    background: rgba($color-primary, 0.1);
+    color: $color-primary;
+    padding: 0.2rem 0.6rem;
+    border-radius: 2rem;
+    display: inline-block;
+  }
+
+  .card-ville {
+    font-size: 0.85rem;
+    color: #666;
+  }
+}
+
+// ─── Header ────────────────────────────────────────────────
+.site-header {
+  background: #fff;
+  border-bottom: 3px solid $color-primary;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+
+  .navbar-brand img {
+    height: 60px;
+  }
+
+  .nav-link {
+    font-weight: 600;
+    color: $color-dark;
+    padding: 0.5rem 1rem;
+    border-radius: $border-radius;
+    transition: background 0.15s;
+    margin-right: 0.5rem;
+
+    &:hover, &.active {
+      background: $color-light;
+      color: $color-primary;
+    }
+  }
+
+  .search-input {
+    border-radius: 2rem;
+    border: 2px solid $color-light;
+    padding: 0.4rem 1rem;
+    font-size: 0.9rem;
+    transition: border-color 0.2s;
+
+    &:focus {
+      border-color: $color-primary;
+      box-shadow: none;
+      outline: none;
+    }
+  }
+
+  .search-btn {
+    border-radius: 0 2rem 2rem 0;
+    background: $color-primary;
+    color: #fff;
+    border: 2px solid $color-primary;
+    padding: 0.4rem 1rem;
+
+    &:hover { background: $color-secondary; border-color: $color-secondary; }
+  }
+}
+
+// ─── Footer ────────────────────────────────────────────────
+.site-footer {
+  background: $color-dark;
+  color: rgba(#fff, 0.85);
+  padding: 2.5rem 0 1.5rem;
+  font-size: 0.9rem;
+
+  a {
+    color: rgba(#fff, 0.75);
+    text-decoration: none;
+    &:hover { color: #fff; text-decoration: underline; }
+  }
+
+  .footer-title {
+    color: #fff;
+    font-weight: 700;
+    font-size: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  hr { border-color: rgba(#fff, 0.15); }
+}
+
+// ─── Hero section accueil ─────────────────────────────────
+.hero {
+  background: linear-gradient(135deg, $color-secondary 0%, $color-primary 100%);
+  color: #fff;
+  padding: 4rem 0;
+
+  h1 { font-size: clamp(1.8rem, 4vw, 3rem); font-weight: 800; }
+  p  { font-size: 1.1rem; opacity: 0.9; }
+}
+
+// ─── Étapes "Comment trouver mon artisan" ─────────────────
+.steps-section {
+  background: $color-light;
+  padding: 3.5rem 0;
+
+  .step-card {
+    background: #fff;
+    border-radius: $border-radius-lg;
+    padding: 1.5rem;
+    height: 100%;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    text-align: center;
+    transition: transform 0.2s;
+
+    &:hover { transform: translateY(-3px); }
+
+    .step-number {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      background: $color-primary;
+      color: #fff;
+      font-size: 1.4rem;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1rem;
+    }
+  }
+}
+
+// ─── Section artisans du mois ─────────────────────────────
+.top-section {
+  padding: 3.5rem 0;
+  .section-title {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: $color-secondary;
+    position: relative;
+    padding-bottom: 0.75rem;
+    margin-bottom: 2rem;
+
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0;
+      width: 60px; height: 4px;
+      background: $color-primary;
+      border-radius: 2px;
+    }
+  }
+}
+
+// ─── Page liste artisans ──────────────────────────────────
+.liste-page {
+  padding: 2.5rem 0;
+
+  .page-title {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: $color-secondary;
+    margin-bottom: 0.25rem;
+  }
+
+  .results-count {
+    color: #888;
+    font-size: 0.9rem;
+    margin-bottom: 1.5rem;
+  }
+}
+
+// ─── Fiche artisan ────────────────────────────────────────
+.fiche-artisan {
+  padding: 2.5rem 0;
+
+  .artisan-photo {
+    width: 100%;
+    max-height: 300px;
+    object-fit: cover;
+    border-radius: $border-radius-lg;
+    background: $color-light;
+  }
+
+  .artisan-photo-placeholder {
+    width: 100%;
+    height: 250px;
+    background: linear-gradient(135deg, $color-light, darken($color-light, 5%));
+    border-radius: $border-radius-lg;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 5rem;
+    color: $color-primary;
+  }
+
+  .badge-specialite {
+    background: rgba($color-primary, 0.12);
+    color: $color-primary;
+    font-size: 0.9rem;
+    padding: 0.35rem 0.9rem;
+    border-radius: 2rem;
+    font-weight: 600;
+  }
+
+  .contact-form {
+    background: $color-light;
+    border-radius: $border-radius-lg;
+    padding: 2rem;
+
+    .form-label { font-weight: 600; font-size: 0.9rem; }
+
+    .form-control {
+      border: 2px solid darken($color-light, 8%);
+      border-radius: $border-radius;
+
+      &:focus {
+        border-color: $color-primary;
+        box-shadow: 0 0 0 3px rgba($color-primary, 0.15);
+      }
+    }
+  }
+}
+
+// ─── Page 404 ─────────────────────────────────────────────
+.page-404 {
+  min-height: 70vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 3rem;
+
+  .error-code {
+    font-size: clamp(5rem, 15vw, 10rem);
+    font-weight: 900;
+    color: $color-light;
+    line-height: 1;
+    -webkit-text-stroke: 3px $color-primary;
+  }
+}
+
+// ─── Loader ───────────────────────────────────────────────
+.loader-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 4rem;
+
+  .spinner-border { color: $color-primary; width: 3rem; height: 3rem; }
+}
+
+// ─── Responsive adjustments ───────────────────────────────
+@media (max-width: 768px) {
+  .hero { padding: 2.5rem 0; }
+  .steps-section { padding: 2rem 0; }
+  .top-section { padding: 2rem 0; }
+  .site-header .navbar-brand img { height: 45px; }
+}

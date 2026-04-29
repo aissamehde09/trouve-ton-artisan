@@ -1,0 +1,22 @@
+# Dépendances
+node_modules/
+*/node_modules/
+
+# Fichiers d'environnement (JAMAIS committer les secrets !)
+.env
+*/.env
+
+# Build React
+frontend/build/
+
+# Logs
+*.log
+npm-debug.log*
+
+# Système
+.DS_Store
+Thumbs.db
+
+# Éditeurs
+.vscode/
+.idea/
