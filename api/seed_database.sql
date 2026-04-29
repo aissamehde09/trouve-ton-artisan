@@ -3,7 +3,7 @@
 -- Jeu d'essais issu du fichier data.xlsx fourni
 -- ============================================================
 
-USE trouve_ton_artisan;
+USE railway;
 
 -- ─── Catégories ───────────────────────────────────────────
 INSERT INTO categories (nom) VALUES
