@@ -80,7 +80,7 @@ const ArtisanPage = () => {
       })
       .catch((err) => setError(err.message))
       .finally(() => setLoading(false));
-  }, [id, fetchArtisanById]);
+  }, [id]);
 
   const handleFormChange = (e) => {
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
