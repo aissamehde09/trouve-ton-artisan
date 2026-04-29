@@ -8,7 +8,7 @@ const apiKeyAuth = require('./middleware/apiKeyAuth');
 const routes = require('./routes');
 
 const app = express();
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 3000;
 
 // ─── Sécurité ───────────────────────────────────────────────
 // Headers HTTP sécurisés
@@ -16,7 +16,7 @@ app.use(helmet());
 
 // CORS : limité à l'application frontend
 app.use(cors({
-  origin: ['http://localhost:3000', 'http://localhost:3001'],
+  origin: ['http://localhost:3000', 'http://localhost:3001', 'https://votre-app-vercel.vercel.app'],
   methods: ['GET', 'POST'],
 }));
 
