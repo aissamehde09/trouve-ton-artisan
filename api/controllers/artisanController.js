@@ -10,7 +10,7 @@ const testData = [
     localisation: "Lyon",
     telephone: "06 12 34 56 78",
     email: "dupont@email.com",
-    photo: "https://via.placeholder.com/300x200/0074c7/ffffff?text=Électricien",
+    photo: "https://images.unsplash.com/photo-1621905251189-08b45d6a269e?w=300&h=200&fit=crop",
     description: "Électricien certifié avec 10 ans d'expérience",
     note_moyenne: 4.5,
     nombre_avis: 23
@@ -22,7 +22,7 @@ const testData = [
     localisation: "Grenoble",
     telephone: "06 23 45 67 89",
     email: "martin@email.com",
-    photo: "https://via.placeholder.com/300x200/82b864/ffffff?text=Plombier",
+    photo: "https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?w=300&h=200&fit=crop",
     description: "Plombier spécialisé en rénovation",
     note_moyenne: 4.8,
     nombre_avis: 31
@@ -34,7 +34,7 @@ const testData = [
     localisation: "Clermont-Ferrand",
     telephone: "06 34 56 78 90",
     email: "durand@email.com",
-    photo: "https://via.placeholder.com/300x200/cd2c2e/ffffff?text=Menuisier",
+    photo: "https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=300&h=200&fit=crop",
     description: "Menuisier artisanal depuis 15 ans",
     note_moyenne: 4.7,
     nombre_avis: 18
