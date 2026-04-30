@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import ArtisanCard from '../components/ArtisanCard';
 import { fetchTopArtisans } from '../utils/api';
+import { setPageSeo } from '../utils/seo';
 
 /**
  * Page d'accueil :
@@ -15,7 +16,10 @@ const HomePage = () => {
   const [error, setError]             = useState(null);
 
   useEffect(() => {
-    document.title = 'Accueil | Trouve ton artisan ! - Région Auvergne-Rhône-Alpes';
+    setPageSeo(
+      'Accueil | Trouve ton artisan ! - Région Auvergne-Rhône-Alpes',
+      'Trouvez un artisan local en Auvergne-Rhône-Alpes par catégorie, consultez sa fiche et contactez-le facilement.'
+    );
 
     fetchTopArtisans()
       .then(setTopArtisans)

@@ -3,6 +3,7 @@ import { useParams, Link } from 'react-router-dom';
 import Stars from '../components/Stars';
 import FontAwesomeIcon from '../components/FontAwesomeIcon';
 import { fetchArtisanById, sendContactMessage } from '../utils/api';
+import { setPageSeo } from '../utils/seo';
 
 /**
  * Retourne une icône selon la spécialité de l'artisan
@@ -76,7 +77,11 @@ const ArtisanPage = () => {
     fetchArtisanById(id)
       .then((data) => {
         setArtisan(data);
-        document.title = `${data.nom} | Trouve ton artisan !`;
+        const specialite = data.specialite?.nom || 'artisan';
+        setPageSeo(
+          `${data.nom} | Trouve ton artisan !`,
+          `Découvrez la fiche de ${data.nom}, ${specialite} à ${data.ville}, et contactez cet artisan via le formulaire.`
+        );
       })
       .catch((err) => setError(err.message))
       .finally(() => setLoading(false));

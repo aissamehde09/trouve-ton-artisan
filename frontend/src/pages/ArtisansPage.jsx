@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import ArtisanCard from '../components/ArtisanCard';
 import { fetchArtisans } from '../utils/api';
+import { setPageSeo } from '../utils/seo';
 
 /**
  * Page liste des artisans.
@@ -24,7 +25,10 @@ const ArtisansPage = () => {
     : 'Tous les artisans';
 
   useEffect(() => {
-    document.title = `${pageTitle} | Trouve ton artisan !`;
+    setPageSeo(
+      `${pageTitle} | Trouve ton artisan !`,
+      `Consultez la liste des artisans ${categorie || search || 'disponibles'} en Auvergne-Rhône-Alpes et accédez à leur fiche détaillée.`
+    );
     setLoading(true);
     setError(null);
 

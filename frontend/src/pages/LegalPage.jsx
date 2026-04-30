@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
+import { setPageSeo } from '../utils/seo';
 
 /**
  * Page légale générique.
@@ -20,7 +21,10 @@ const LegalPage = () => {
   const title = titles[location.pathname] || 'Page légale';
 
   useEffect(() => {
-    document.title = `${title} | Trouve ton artisan !`;
+    setPageSeo(
+      `${title} | Trouve ton artisan !`,
+      `${title} de la plateforme Trouve ton artisan. Cette page est en construction.`
+    );
   }, [title]);
 
   return (

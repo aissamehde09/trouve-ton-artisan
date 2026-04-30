@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { setPageSeo } from '../utils/seo';
 
 /**
  * Page 404 - Page non trouvée
@@ -7,11 +8,19 @@ import { Link } from 'react-router-dom';
  */
 const NotFoundPage = () => {
   useEffect(() => {
-    document.title = 'Page non trouvée | Trouve ton artisan !';
+    setPageSeo(
+      'Page non trouvée | Trouve ton artisan !',
+      'La page demandée est introuvable. Revenez à l’accueil ou consultez la liste des artisans.'
+    );
   }, []);
 
   return (
     <main id="main-content" className="page-404" aria-labelledby="error-title">
+      <img
+        src="/logo.png"
+        alt="Trouve ton artisan"
+        className="error-image"
+      />
       <div className="error-code" aria-hidden="true">404</div>
 
       <h1 id="error-title" className="fw-bold fs-2 mt-3 mb-2">

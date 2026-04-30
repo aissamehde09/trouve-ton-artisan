@@ -1,52 +1,20 @@
 const { Artisan, Specialite, Categorie } = require('../models');
 const { Op } = require('sequelize');
 
-// Données de test pour contourner le problème MySQL
-const testData = [
-  {
-    id: 1,
-    nom: "Dupont Électricité",
-    metier: "Électricien",
-    localisation: "Lyon",
-    telephone: "06 12 34 56 78",
-    email: "dupont@email.com",
-    photo: "https://images.unsplash.com/photo-1621905251189-08b45d6a269e?w=300&h=200&fit=crop",
-    description: "Électricien certifié avec 10 ans d'expérience",
-    note_moyenne: 4.5,
-    nombre_avis: 23
-  },
-  {
-    id: 2,
-    nom: "Martin Plomberie",
-    metier: "Plombier",
-    localisation: "Grenoble",
-    telephone: "06 23 45 67 89",
-    email: "martin@email.com",
-    photo: "https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?w=300&h=200&fit=crop",
-    description: "Plombier spécialisé en rénovation",
-    note_moyenne: 4.8,
-    nombre_avis: 31
-  },
-  {
-    id: 3,
-    nom: "Durand Menuiserie",
-    metier: "Menuisier",
-    localisation: "Clermont-Ferrand",
-    telephone: "06 34 56 78 90",
-    email: "durand@email.com",
-    photo: "https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=300&h=200&fit=crop",
-    description: "Menuisier artisanal depuis 15 ans",
-    note_moyenne: 4.7,
-    nombre_avis: 18
-  }
-];
-
-// Inclure les relations dans chaque requête
-const includeRelations = [
+const getIncludeRelations = ({ categorie, specialite } = {}) => [
   {
     model: Specialite,
     as: 'specialite',
-    include: [{ model: Categorie, as: 'categorie' }],
+    required: Boolean(categorie || specialite),
+    ...(specialite ? { where: { nom: specialite } } : {}),
+    include: [
+      {
+        model: Categorie,
+        as: 'categorie',
+        required: Boolean(categorie),
+        ...(categorie ? { where: { nom: categorie } } : {}),
+      },
+    ],
   },
 ];
 
@@ -57,32 +25,19 @@ const includeRelations = [
 const getAllArtisans = async (req, res) => {
   try {
     const { search, categorie, specialite } = req.query;
-    let filteredArtisans = testData;
+    const where = {};
 
-    // Filtrer par recherche
     if (search) {
-      filteredArtisans = filteredArtisans.filter(artisan =>
-        artisan.nom.toLowerCase().includes(search.toLowerCase()) ||
-        artisan.metier.toLowerCase().includes(search.toLowerCase()) ||
-        artisan.localisation.toLowerCase().includes(search.toLowerCase())
-      );
+      where.nom = { [Op.like]: `%${search}%` };
     }
 
-    // Filtrer par catégorie/métier
-    if (categorie) {
-      filteredArtisans = filteredArtisans.filter(artisan =>
-        artisan.metier.toLowerCase().includes(categorie.toLowerCase())
-      );
-    }
+    const artisans = await Artisan.findAll({
+      where,
+      include: getIncludeRelations({ categorie, specialite }),
+      order: [['nom', 'ASC']],
+    });
 
-    // Filtrer par spécialité
-    if (specialite) {
-      filteredArtisans = filteredArtisans.filter(artisan =>
-        artisan.metier.toLowerCase().includes(specialite.toLowerCase())
-      );
-    }
-
-    res.json(filteredArtisans);
+    res.json(artisans);
   } catch (error) {
     console.error('Erreur getAllArtisans:', error);
     res.status(500).json({ error: 'Erreur serveur.' });
@@ -95,8 +50,11 @@ const getAllArtisans = async (req, res) => {
  */
 const getTopArtisans = async (req, res) => {
   try {
-    // Retourner les 3 premiers artisans de test
-    const topArtisans = testData.slice(0, 3);
+    const topArtisans = await Artisan.findAll({
+      where: { top: true },
+      include: getIncludeRelations(),
+      limit: 3,
+    });
     res.json(topArtisans);
   } catch (error) {
     console.error('Erreur getTopArtisans:', error);
@@ -110,7 +68,9 @@ const getTopArtisans = async (req, res) => {
  */
 const getArtisanById = async (req, res) => {
   try {
-    const artisan = testData.find(a => a.id === parseInt(req.params.id));
+    const artisan = await Artisan.findByPk(req.params.id, {
+      include: getIncludeRelations(),
+    });
 
     if (!artisan) {
       return res.status(404).json({ error: 'Artisan introuvable.' });

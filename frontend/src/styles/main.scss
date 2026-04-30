@@ -333,6 +333,12 @@ body {
   text-align: center;
   padding: 3rem;
 
+  .error-image {
+    width: min(220px, 70vw);
+    height: auto;
+    margin-bottom: 1rem;
+  }
+
   .error-code {
     font-size: clamp(5rem, 15vw, 10rem);
     font-weight: 900;
