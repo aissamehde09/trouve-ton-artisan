@@ -15,9 +15,23 @@ const PORT = process.env.PORT || 3000;
 // Headers HTTP sécurisés
 app.use(helmet());
 
-// CORS : limité à l'application frontend
+// CORS : limité à l'application frontend et aux déploiements Vercel du projet
+const allowedOrigins = [
+  'http://localhost:3000',
+  'http://localhost:3001',
+  'https://trouve-ton-artisan-dbs2.vercel.app',
+  'https://trouve-ton-artisan-dusky.vercel.app',
+  process.env.FRONTEND_URL,
+].filter(Boolean);
+
 app.use(cors({
-  origin: ['http://localhost:3000', 'http://localhost:3001', 'https://trouve-ton-artisan-dbs2.vercel.app'],
+  origin(origin, callback) {
+    if (!origin || allowedOrigins.includes(origin) || /^https:\/\/trouve-ton-artisan-[a-z0-9-]+\.vercel\.app$/.test(origin)) {
+      return callback(null, true);
+    }
+
+    return callback(new Error('Origine non autorisée par CORS.'));
+  },
   methods: ['GET', 'POST'],
 }));
 

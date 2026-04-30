@@ -8,10 +8,15 @@ const { sequelize } = require('../models');
  */
 function parseSqlFile(filePath) {
   const sql = fs.readFileSync(filePath, 'utf8');
-  return sql
+  const withoutComments = sql
+    .split(/\r?\n/)
+    .filter((line) => !line.trim().startsWith('--'))
+    .join('\n');
+
+  return withoutComments
     .split(';')
     .map((stmt) => stmt.trim())
-    .filter((stmt) => stmt.length > 0 && !stmt.startsWith('--'));
+    .filter((stmt) => stmt.length > 0);
 }
 
 /**
@@ -31,30 +36,38 @@ async function executeSqlFile(filePath) {
  */
 async function initializeDatabase() {
   try {
-    // Check whether the artisans table already exists
+    // Check whether the required tables already exist
     const [rows] = await sequelize.query(
-      `SELECT COUNT(*) AS count
+      `SELECT table_name
        FROM information_schema.tables
        WHERE table_schema = DATABASE()
-         AND table_name = 'artisans';`
+         AND table_name IN ('categories', 'specialites', 'artisans');`
     );
 
-    const tableExists = rows[0].count > 0;
+    const existingTables = new Set(rows.map((row) => row.TABLE_NAME || row.table_name));
+    const requiredTables = ['categories', 'specialites', 'artisans'];
+    const allTablesExist = requiredTables.every((table) => existingTables.has(table));
 
-    if (tableExists) {
-      console.log('ℹ️  Tables already exist — skipping database initialization.');
+    if (!allTablesExist) {
+      console.log('🛠️  Missing tables — running database schema initialization...');
+
+      const createSqlPath = path.join(__dirname, '..', 'create_database.sql');
+      console.log('📄 Executing create_database.sql...');
+      await executeSqlFile(createSqlPath);
+      console.log('✅ Schema created successfully.');
+    } else {
+      console.log('ℹ️  Tables already exist — skipping schema initialization.');
+    }
+
+    const [countRows] = await sequelize.query('SELECT COUNT(*) AS count FROM artisans;');
+    const artisanCount = Number(countRows[0].count || 0);
+
+    if (artisanCount > 0) {
+      console.log('ℹ️  Seed data already exists — skipping database seeding.');
       return;
     }
 
-    console.log('🛠️  Tables not found — running database initialization...');
-
-    const createSqlPath = path.join(__dirname, '..', 'create_database.sql');
     const seedSqlPath = path.join(__dirname, '..', 'seed_database.sql');
-
-    console.log('📄 Executing create_database.sql...');
-    await executeSqlFile(createSqlPath);
-    console.log('✅ Schema created successfully.');
-
     console.log('📄 Executing seed_database.sql...');
     await executeSqlFile(seedSqlPath);
     console.log('✅ Seed data inserted successfully.');
