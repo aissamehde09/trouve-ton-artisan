@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link, NavLink, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 
 /**
  * Composant Header - Navigation principale du site.
@@ -9,7 +9,10 @@ import { Link, NavLink, useNavigate } from 'react-router-dom';
 const Header = ({ categories = [] }) => {
   const [search, setSearch] = useState('');
   const [menuOpen, setMenuOpen] = useState(false);
+  const [searchParams] = useSearchParams();
   const navigate = useNavigate();
+
+  const activeCategorie = searchParams.get('categorie');
 
   const handleSearch = (e) => {
     e.preventDefault();
@@ -50,14 +53,14 @@ const Header = ({ categories = [] }) => {
           <ul className="navbar-nav me-auto mb-2 mb-lg-0" role="menubar">
             {categories.map((cat) => (
               <li key={cat.id} className="nav-item" role="none">
-                <NavLink
+                <Link
                   to={`/artisans?categorie=${encodeURIComponent(cat.nom)}`}
-                  className="nav-link"
+                  className={`nav-link ${activeCategorie === cat.nom ? 'active' : ''}`}
                   role="menuitem"
                   onClick={() => setMenuOpen(false)}
                 >
                   {cat.nom}
-                </NavLink>
+                </Link>
               </li>
             ))}
           </ul>
